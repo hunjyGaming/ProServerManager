@@ -4,3 +4,6 @@ authors:
   - RiedCrafter
 main: de.hunjy.PSM
 version: vBETA 0.00.1
+
+commands:
+  psm:

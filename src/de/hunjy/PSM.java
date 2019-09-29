@@ -1,10 +1,7 @@
 package de.hunjy;
 
-import de.hunjy.listener.EVENT_JoinQuit;
 import de.hunjy.manager.ConfigManager;
 import de.hunjy.manager.MessageManager;
-import org.bukkit.Bukkit;
-import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /*
@@ -41,14 +38,10 @@ public class PSM extends JavaPlugin {
 
     private void initManager() {
         mainConfig = new ConfigManager("config.yml");
-        mainConfig.setDefault("messageFile", "messages.yml");
-        mainConfig.setDefault("enableJoinMessage", true);
-        mainConfig.setDefault("JoinMessage", "&8[&a+&8] %player%");
-        mainConfig.setDefault("joinePermission", "psm.join.info");
+        mainConfig.setDefault("messageFile", "de.json");
 
 
         messageManager = new MessageManager( ( String ) mainConfig.get("messageFile"));
-        messageManager.setDefault("test", "Das ist ein Test");
     }
 
     private void initCommands() {
@@ -56,8 +49,7 @@ public class PSM extends JavaPlugin {
     }
 
     private void initListener() {
-        PluginManager pluginManager = Bukkit.getPluginManager();
-        pluginManager.registerEvents(new EVENT_JoinQuit(), getInstance());
+
     }
 
     public static PSM getInstance() {
