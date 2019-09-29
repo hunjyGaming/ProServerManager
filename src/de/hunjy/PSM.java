@@ -1,7 +1,10 @@
 package de.hunjy;
 
+import de.hunjy.listener.EVENT_JoinQuit;
 import de.hunjy.manager.ConfigManager;
 import de.hunjy.manager.MessageManager;
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /*
@@ -42,6 +45,7 @@ public class PSM extends JavaPlugin {
 
 
         messageManager = new MessageManager( ( String ) mainConfig.get("messageFile"));
+        messageManager.setDefault("test", "Das ist ein Test");
     }
 
     private void initCommands() {
@@ -49,7 +53,8 @@ public class PSM extends JavaPlugin {
     }
 
     private void initListener() {
-
+        PluginManager pluginManager = Bukkit.getPluginManager();
+        pluginManager.registerEvents(new EVENT_JoinQuit(), getInstance());
     }
 
     public static PSM getInstance() {

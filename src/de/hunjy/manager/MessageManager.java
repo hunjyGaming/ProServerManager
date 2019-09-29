@@ -3,11 +3,13 @@ package de.hunjy.manager;
 
 import de.hunjy.PSM;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.File;
+import java.io.IOException;
 
 /*
     Create by hunjy on 29.09.2019
@@ -18,21 +20,30 @@ import java.io.File;
 */
 public class MessageManager {
 
-    private File path;
+    private File file;
+    private String name;
+    private YamlConfiguration config;
     private String pathString;
     private long lastUpdate;
 
-    public MessageManager(String pathString) {
-        this.pathString = pathString;
-        this.path = new File(PSM.getInstance().getDataFolder() + "/messages", pathString);
-        if(!this.path.exists()) {
-            Bukkit.getConsoleSender().sendMessage("§8§l[§4§l!§8§l] §cDie Datei " + pathString + " wurde nicht gefunden!");
+    public MessageManager(String name) {
+        this.name = name;
+        this.file = new File(PSM.getInstance().getDataFolder() + "/messages", name);
+        this.config = YamlConfiguration.loadConfiguration(this.file);
+        if(!this.file.exists()) {
+            Bukkit.getConsoleSender().sendMessage("§8§l[§4§l!§8§l] §cDie Datei " + name + " wurde nicht gefunden!");
         }
     }
 
+    private void save() {
+        try {
+            config.save(file);
+        }catch (IOException e){
+        }
+    }
 
     private boolean isFileUpdated() {
-        long timeStamp = path.lastModified();
+        long timeStamp = file.lastModified();
 
         if( this.lastUpdate != timeStamp ) {
             this.lastUpdate = timeStamp;
@@ -41,21 +52,22 @@ public class MessageManager {
         return false;
     }
 
+
+    public void setDefault(String key, Object value) {
+        if(!config.contains(key)) {
+            config.set(key ,value);
+            save();
+        }
+    }
+
     public StringBuilder get(String key) {
 
         if(isFileUpdated()) {
-            this.path = null;
-            this.path = new File(pathString);
+            this.config = null;
+            this.file = new File(PSM.getInstance().getDataFolder() + "/messages", name);
+            this.config = YamlConfiguration.loadConfiguration(this.file);
         }
-
-        try {
-            JSONParser jsonParser = new JSONParser();
-            Object parsed = jsonParser.parse(this.path.getPath());
-            JSONObject jsonObject = (JSONObject)parsed;
-            return new StringBuilder().append(jsonObject.get(key));
-        }catch (ParseException e) {
-            return null;
-        }
+        return new StringBuilder().append(config.getString(key));
     }
 
 }
