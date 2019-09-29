@@ -60,7 +60,7 @@ public class PSM extends JavaPlugin {
         pm.registerEvents(new EVENT_JoinQuit(), getInstance());
     }
 
-    public String raplaceVar(String s, String var, String entry) {
+    public String replaceVar(String s, String var, String entry) {
 
         s = s.replaceAll(var, entry).replaceAll("&", "§");
 

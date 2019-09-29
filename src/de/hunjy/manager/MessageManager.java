@@ -53,7 +53,7 @@ public class MessageManager {
         }
     }
 
-    public StringBuilder get(String key) {
+    public String get(String key) {
         if(!this.file.exists()) {
             Bukkit.getConsoleSender().sendMessage("§8§l[§4§l!§8§l] §cDie Datei " + name + " wurde nicht gefunden!");
             return null;
@@ -64,7 +64,7 @@ public class MessageManager {
             this.file = new File(PSM.getInstance().getDataFolder() + "/messages", name);
             this.config = YamlConfiguration.loadConfiguration(this.file);
         }
-        return new StringBuilder().append(config.getString(key).replaceAll("&", "§"));
+        return PSM.getInstance().replaceVar(config.getString(key) , "", "");
     }
 
 }

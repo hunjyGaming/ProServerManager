@@ -14,7 +14,7 @@ public class PrefixBuilder {
     String retString;
 
     public PrefixBuilder(String prefix) {
-        this.retString =   PSM.getInstance().raplaceVar ((String) PSM.getInstance().getMainConfig().get("Prefix"), "%prefix%", prefix);
+        this.retString =   PSM.getInstance().replaceVar ((String) PSM.getInstance().getMainConfig().get("Prefix"), "%prefix%", prefix);
     }
 
     public String build()  {return this.retString; }
