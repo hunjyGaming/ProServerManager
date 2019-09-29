@@ -65,7 +65,7 @@ public class MessageManager {
             this.file = new File(PSM.getInstance().getDataFolder() + "/messages", name);
             this.config = YamlConfiguration.loadConfiguration(this.file);
         }
-        return new StringBuilder().append(config.getString(key));
+        return new StringBuilder().append(config.getString(key).replaceAll("&", "$"));
     }
 
 }
