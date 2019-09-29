@@ -2,6 +2,7 @@ package de.hunjy.manager;
 
 
 import de.hunjy.PSM;
+import org.bukkit.Bukkit;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -24,6 +25,9 @@ public class MessageManager {
     public MessageManager(String pathString) {
         this.pathString = pathString;
         this.path = new File(PSM.getInstance().getDataFolder() + "/messages", pathString);
+        if(!this.path.exists()) {
+            Bukkit.getConsoleSender().sendMessage("§8§l[§4§l!§8§l] §cDie Datei " + pathString + " wurde nicht gefunden!");
+        }
     }
 
 
