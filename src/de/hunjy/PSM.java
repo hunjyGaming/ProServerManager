@@ -1,5 +1,7 @@
 package de.hunjy;
 
+import de.hunjy.manager.ConfigManager;
+import de.hunjy.manager.MessageManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /*
@@ -13,6 +15,12 @@ public class PSM extends JavaPlugin {
 
     static PSM instance;
 
+
+    private MessageManager messageManager;
+    private ConfigManager mainConfig;
+
+
+
     @Override
     public void onEnable() {
 
@@ -20,6 +28,7 @@ public class PSM extends JavaPlugin {
 
         initCommands();
         initListener();
+        initManager();
     }
 
     @Override
@@ -27,14 +36,31 @@ public class PSM extends JavaPlugin {
 
     }
 
+    private void initManager() {
+        mainConfig = new ConfigManager("config.yml");
+        mainConfig.setDefault("messageFile", "de.json");
+
+
+        messageManager = new MessageManager( ( String ) mainConfig.get("messageFile"));
+    }
+
     private void initCommands() {
 
     }
+
     private void initListener() {
 
     }
 
     public static PSM getInstance() {
         return instance;
+    }
+
+    public ConfigManager getMainConfig() {
+        return mainConfig;
+    }
+
+    public MessageManager getMessageManager() {
+        return messageManager;
     }
 }

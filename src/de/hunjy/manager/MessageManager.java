@@ -1,6 +1,7 @@
 package de.hunjy.manager;
 
 
+import de.hunjy.PSM;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -22,7 +23,7 @@ public class MessageManager {
 
     public MessageManager(String pathString) {
         this.pathString = pathString;
-        this.path = new File(pathString);
+        this.path = new File(PSM.getInstance().getDataFolder() + "/messages", pathString);
     }
 
 
