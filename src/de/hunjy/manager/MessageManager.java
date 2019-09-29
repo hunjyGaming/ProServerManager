@@ -27,9 +27,6 @@ public class MessageManager {
         this.name = name;
         this.file = new File(PSM.getInstance().getDataFolder() + "/messages", name);
         this.config = YamlConfiguration.loadConfiguration(this.file);
-        if(!this.file.exists()) {
-            Bukkit.getConsoleSender().sendMessage("§8§l[§4§l!§8§l] §cDie Datei " + name + " wurde nicht gefunden!");
-        }
     }
 
     private void save() {
@@ -58,6 +55,10 @@ public class MessageManager {
     }
 
     public StringBuilder get(String key) {
+        if(!this.file.exists()) {
+            Bukkit.getConsoleSender().sendMessage("§8§l[§4§l!§8§l] §cDie Datei " + name + " wurde nicht gefunden!");
+            return null;
+        }
 
         if(isFileUpdated()) {
             this.config = null;
