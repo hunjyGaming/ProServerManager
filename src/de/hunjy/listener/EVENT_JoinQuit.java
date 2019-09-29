@@ -22,7 +22,7 @@ public class EVENT_JoinQuit implements Listener {
             event.setJoinMessage(null);
         }else {
             String msg = (String) PSM.getInstance().getMainConfig().get("JoinMessage");
-            msg = msg.replaceAll("&", "§");
+            msg = msg.replaceAll("&", "§").replaceAll("%player%", player.getDisplayName());
             event.setJoinMessage(msg);
         }
         if (player.hasPermission((String) PSM.getInstance().getMainConfig().get("joinePermission"))) {

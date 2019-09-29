@@ -41,7 +41,10 @@ public class PSM extends JavaPlugin {
 
     private void initManager() {
         mainConfig = new ConfigManager("config.yml");
-        mainConfig.setDefault("messageFile", "de.json");
+        mainConfig.setDefault("messageFile", "messages.yml");
+        mainConfig.setDefault("enableJoinMessage", true);
+        mainConfig.setDefault("JoinMessage", "&8[&a+&8] %player%");
+        mainConfig.setDefault("joinePermission", "psm.join.info");
 
 
         messageManager = new MessageManager( ( String ) mainConfig.get("messageFile"));

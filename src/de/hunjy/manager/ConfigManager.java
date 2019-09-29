@@ -48,7 +48,7 @@ public class ConfigManager {
 
 
     public void setDefault(String key, Object value) {
-        if(!file.exists()) {
+        if(!config.contains(key)) {
             config.set(key ,value);
             save();
         }
