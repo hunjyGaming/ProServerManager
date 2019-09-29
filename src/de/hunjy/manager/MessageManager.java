@@ -20,7 +20,6 @@ public class MessageManager {
     private File file;
     private String name;
     private YamlConfiguration config;
-    private String pathString;
     private long lastUpdate;
 
     public MessageManager(String name) {
@@ -65,7 +64,7 @@ public class MessageManager {
             this.file = new File(PSM.getInstance().getDataFolder() + "/messages", name);
             this.config = YamlConfiguration.loadConfiguration(this.file);
         }
-        return new StringBuilder().append(config.getString(key).replaceAll("&", "$"));
+        return new StringBuilder().append(config.getString(key).replaceAll("&", "§"));
     }
 
 }
