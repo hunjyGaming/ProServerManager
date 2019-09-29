@@ -20,6 +20,9 @@ public class PSMCommand implements CommandExecutor {
     private ArrayList<String> commands;
 
     public PSMCommand(String name) {
+        if(name.equals("test")) {
+            return;
+        }
         this.name = name;
         if(!this.commands.contains(name.toLowerCase())) {
             this.commands.add(name.toLowerCase());
