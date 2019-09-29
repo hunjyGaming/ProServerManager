@@ -1,7 +1,10 @@
 package de.hunjy;
 
+import de.hunjy.listener.EVENT_JoinQuit;
 import de.hunjy.manager.ConfigManager;
 import de.hunjy.manager.MessageManager;
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /*
@@ -53,7 +56,8 @@ public class PSM extends JavaPlugin {
     }
 
     private void initListener() {
-
+        PluginManager pm = Bukkit.getPluginManager();
+        pm.registerEvents(new EVENT_JoinQuit(), getInstance());
     }
 
     public String raplaceVar(String s, String var, String entry) {
