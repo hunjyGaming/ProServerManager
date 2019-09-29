@@ -60,6 +60,14 @@ public class PSM extends JavaPlugin {
         pluginManager.registerEvents(new EVENT_JoinQuit(), getInstance());
     }
 
+    public String raplaceVars(String s, String var, String entry) {
+
+        s = s.replaceAll(var, entry);
+
+        return s;
+    }
+
+
     public static PSM getInstance() {
         return instance;
     }
