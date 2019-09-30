@@ -29,7 +29,7 @@ public class PSMCommandHandler {
     }
 
     public static boolean executeCommand(Player player, String command) {
-        String rawCommand = command.substring(1);
+        String rawCommand = command;
         String[] args = rawCommand.split(" ");
 
         for(PSMCommand psmCommand : commands) {

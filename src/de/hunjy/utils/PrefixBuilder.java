@@ -1,7 +1,5 @@
 package de.hunjy.utils;
 
-import de.hunjy.PSM;
-
 /*
     Create by hunjy on 29.09.2019
     @auther: hunjy
@@ -11,12 +9,14 @@ import de.hunjy.PSM;
 */
 public class PrefixBuilder {
 
-    String retString;
+    private String retString = "§8│ %prefix% §8» §f";
 
     public PrefixBuilder(String prefix) {
-        this.retString =   PSM.getInstance().replaceVar ((String) PSM.getInstance().getMainConfig().get("Prefix"), "%prefix%", prefix);
+        retString = retString.replaceAll("%prefix%", prefix);
     }
 
-    public String build()  {return this.retString; }
+    public String build() {
+        return retString;
+    }
 
 }

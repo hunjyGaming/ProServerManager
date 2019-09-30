@@ -12,6 +12,7 @@ import org.bukkit.entity.Player;
 public interface PSMCommand {
 
     public String getName();
+    public String getDescription();
     public void execute(Player player, String[] args);
 
 }
