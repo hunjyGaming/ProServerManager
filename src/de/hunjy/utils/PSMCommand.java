@@ -29,4 +29,11 @@ public abstract class PSMCommand {
 
     public abstract void execute(Object... args);
 
+    public String getAlias() {
+        return alias;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 }
