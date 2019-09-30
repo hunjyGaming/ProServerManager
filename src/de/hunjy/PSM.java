@@ -1,5 +1,7 @@
 package de.hunjy;
 
+import de.hunjy.commands.CMD_help;
+import de.hunjy.commands.CMD_reload;
 import de.hunjy.listener.EVENT_JoinQuit;
 import de.hunjy.manager.ConfigManager;
 import de.hunjy.manager.MessageManager;
@@ -21,8 +23,6 @@ public class PSM extends JavaPlugin {
 
     private MessageManager messageManager;
     private ConfigManager mainConfig;
-
-
 
     @Override
     public void onEnable() {
@@ -52,7 +52,8 @@ public class PSM extends JavaPlugin {
     }
 
     private void initCommands() {
-
+        new CMD_help(getInstance(), "help");
+        new CMD_reload(getInstance(), "reload");
     }
 
     private void initListener() {
