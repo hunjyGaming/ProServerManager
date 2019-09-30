@@ -14,37 +14,19 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 
-public class PSMCommand implements CommandExecutor {
+public abstract class PSMCommand {
 
-    private String name;
-    private ArrayList<String> commands;
+    private String alias;
+    private String description;
 
-    public PSMCommand(String name) {
-        if(name.equals("test")) {
-            return;
-        }
-        this.name = name;
-        if(!this.commands.contains(name.toLowerCase())) {
-            this.commands.add(name.toLowerCase());
-        }
+    public void setAlias(String alias) {
+        this.alias = alias;
     }
 
-    @Override
-    public boolean onCommand(CommandSender cs, Command cmd, String label, String[] args) {
-
-        if(!(cs instanceof Player)) {
-            cs.sendMessage("");
-            return false;
-        }
-
-        return false;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public ArrayList<String> getCommands() {
-        return commands;
-    }
+    public abstract void execute(Object... args);
 
-    public String getName() {
-        return name;
-    }
 }
