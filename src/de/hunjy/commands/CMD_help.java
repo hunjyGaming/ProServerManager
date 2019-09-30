@@ -1,6 +1,7 @@
 package de.hunjy.commands;
 
 import de.hunjy.PSM;
+import de.hunjy.utils.commands.PSMCommand;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -13,34 +14,21 @@ import org.bukkit.entity.Player;
     @time: 15:48
     @projekt: ProServerManager
 */
-public class CMD_help implements CommandExecutor {
+public class CMD_help implements PSMCommand {
 
-    private String alias;
-
-    public CMD_help(PSM instance, String alias) {
-        instance.getCommand("PSM").setExecutor(this);
-        this.alias = alias;
+    @Override
+    public String getName() {
+        return "help";
     }
 
     @Override
-    public boolean onCommand(CommandSender cs, Command cmd, String lable, String[] args) {
-
-
-        if(! ( cs instanceof  Player) ) {
-            return false;
+    public void execute(Player player, String[] args) {
+        if(player.hasPermission("psm.admin")) {
+            if(args.length == 0) {
+                player.sendMessage(PSM.Prefix + "§aJa");
+            } else {
+                player.sendMessage(PSM.Prefix + "§cNein");
+            }
         }
-
-        Player player = (Player) cs;
-
-        if(args.length == 0) {
-            return false;
-        }
-
-        if(args[0].equalsIgnoreCase(alias)){
-            player.sendMessage("§aJa");
-        }else {
-            player.sendMessage("§cNein");
-        }
-        return false;
     }
 }
