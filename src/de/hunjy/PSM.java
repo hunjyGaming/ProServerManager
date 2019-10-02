@@ -40,6 +40,7 @@ public class PSM extends JavaPlugin {
         initCommands();
         initListener();
         initManager();
+        initRunnables();
     }
 
     @Override

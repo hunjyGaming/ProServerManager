@@ -33,25 +33,34 @@ public class CMD_performance implements PSMCommand{
                 double TPS = TPSManager.getTPS();
                 DecimalFormat TpsFormat = new DecimalFormat("#.##");
 
-                if(TPS > 20){
-                    player.sendMessage(PSM.Prefix + "§7TPS§8: §a" + TpsFormat.format(TPS));
+                String TPSolor ;
+                if(TPS >= 20){
+                    TPSolor = "§2";
                 }
 
                 else if(TPS > 18){
-                    player.sendMessage(PSM.Prefix + "§7TPS§8: §2" + TpsFormat.format(TPS));
+                    TPSolor = "§a";
                 }
 
                 else if(TPS > 13){
-                    player.sendMessage(PSM.Prefix + "§7TPS§8: §6" + TpsFormat.format(TPS));
+                    TPSolor = "§6";
                 }
 
                 else if(TPS > 9){
-                    player.sendMessage(PSM.Prefix + "§7TPS§8: §c" + TpsFormat.format(TPS));
+                    TPSolor = "§c";
                 }
 
-                else if(TPS < 9){
-                    player.sendMessage(PSM.Prefix + "§7TPS§8: §4" + TpsFormat.format(TPS));
+                else {
+                    TPSolor = "§4";
                 }
+
+
+                long TPSUsed = (long) TPS;
+                long TPSMax = (long) 20;
+                double TPSProcent = (TPSUsed*100) / TPSMax;
+                player.sendMessage(PSM.Prefix + "§7TPS§8: " + TPSolor +  TpsFormat.format(TPS) + " §8/ §220 §7(§b" + TPSProcent + "%§7)");
+
+
                 String RAMColor;
                 long RamUsed = (Runtime.getRuntime().maxMemory() - Runtime.getRuntime().freeMemory()) / 1024L / 1024L;
                 long RamMax = Runtime.getRuntime().maxMemory() / 1024L / 1024L;
