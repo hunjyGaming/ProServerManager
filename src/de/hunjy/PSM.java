@@ -1,6 +1,7 @@
 package de.hunjy;
 
 import de.hunjy.commands.CMD_performance;
+import de.hunjy.utils.TPSManager;
 import de.hunjy.utils.commands.CMD_PSM;
 import de.hunjy.commands.CMD_help;
 import de.hunjy.listener.EVENT_JoinQuit;
@@ -8,6 +9,8 @@ import de.hunjy.manager.ConfigManager;
 import de.hunjy.manager.MessageManager;
 import de.hunjy.utils.PrefixBuilder;
 import de.hunjy.utils.commands.PSMCommandHandler;
+import de.hunjy.utils.mysql.MySQL;
+import de.hunjy.utils.mysql.MySQL_Config;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -23,7 +26,8 @@ public class PSM extends JavaPlugin {
 
     static PSM instance;
 
-
+    private static MySQL mySQL;
+    private static MySQL_Config mySQL_config;
     private MessageManager messageManager;
     private ConfigManager mainConfig;
     public static String Prefix = new PrefixBuilder("§3PSM").build();
@@ -43,6 +47,10 @@ public class PSM extends JavaPlugin {
 
     }
 
+    private void initMySQL() {
+        mySQL = new MySQL(mySQL_config.getHost(), mySQL_config.getPort(), mySQL_config.getUser(), mySQL_config.getDatabase(), mySQL_config.getPassword(), true);
+    }
+
     private void initManager() {
         mainConfig = new ConfigManager("config.yml");
         mainConfig.setDefault("messageFile", "messages.yml");
@@ -52,6 +60,10 @@ public class PSM extends JavaPlugin {
 
 
         messageManager = new MessageManager( ( String ) mainConfig.get("messageFile"));
+    }
+
+    private void initRunnables() {
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(getInstance(), new TPSManager(), 100L, 1L);
     }
 
     private void initCommands() {
@@ -86,5 +98,9 @@ public class PSM extends JavaPlugin {
 
     public MessageManager getMessageManager() {
         return messageManager;
+    }
+
+    public static MySQL getMySQL() {
+        return mySQL;
     }
 }
