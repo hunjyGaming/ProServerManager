@@ -1,8 +1,9 @@
 package de.hunjy.commands;
 
 import de.hunjy.PSM;
-import de.hunjy.utils.TPSManager;
+import de.hunjy.manager.TPSManager;
 import de.hunjy.utils.commands.PSMCommand;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.text.DecimalFormat;
@@ -52,6 +53,25 @@ public class CMD_performance implements PSMCommand{
                 else if(TPS < 9){
                     player.sendMessage(PSM.Prefix + "§7TPS§8: §4" + TpsFormat.format(TPS));
                 }
+                String RAMColor;
+                long RamUsed = (Runtime.getRuntime().maxMemory() - Runtime.getRuntime().freeMemory()) / 1024L / 1024L;
+                long RamMax = Runtime.getRuntime().maxMemory() / 1024L / 1024L;
+                double RamProcent = (RamUsed / RamMax) * 100;
+                if(RamProcent >= 90) {
+                    RAMColor = "§4";
+                }else if(RamProcent >= 75) {
+                    RAMColor = "§c";
+                }else if(RamProcent >= 50) {
+                    RAMColor = "§6";
+                }else if(RamProcent >= 25) {
+                    RAMColor = "§a";
+                }else {
+                    RAMColor = "§2";
+                }
+
+
+                player.sendMessage( PSM.Prefix + "§7RAM§8: " + RAMColor + (Runtime.getRuntime().maxMemory() - Runtime.getRuntime().freeMemory()) / 1024L / 1024L + " §8/ §4"  + Runtime.getRuntime().maxMemory()  / 1024L / 1024L + " §7(§b" + TpsFormat.format(RamProcent) + "%§7)");
+                player.sendMessage( PSM.Prefix + "§7CPU§8: §2" + Runtime.getRuntime().availableProcessors() + " §7(§bKern/e§7)");
             } else {
                 player.sendMessage(PSM.Prefix + "§cDieser Command existiert nicht!");
             }

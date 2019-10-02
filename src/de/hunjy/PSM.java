@@ -1,7 +1,7 @@
 package de.hunjy;
 
 import de.hunjy.commands.CMD_performance;
-import de.hunjy.utils.TPSManager;
+import de.hunjy.manager.TPSManager;
 import de.hunjy.utils.commands.CMD_PSM;
 import de.hunjy.commands.CMD_help;
 import de.hunjy.listener.EVENT_JoinQuit;

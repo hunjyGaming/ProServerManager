@@ -1,4 +1,4 @@
-package de.hunjy.utils;
+package de.hunjy.manager;
 /*
     Create by RiedCrafter on 30.09.2019
     @author: RiedCrafter
