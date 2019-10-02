@@ -2,6 +2,8 @@ package de.hunjy.utils.commands;
 
 import com.google.common.collect.Lists;
 import de.hunjy.PSM;
+import de.hunjy.utils.alert.Alert;
+import de.hunjy.utils.alert.AlertType;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -28,7 +30,16 @@ public class CMD_PSM implements CommandExecutor, TabCompleter {
             String msg = "";
 
             if(args.length == 0) {
-                msg = "help ";
+                new Alert(AlertType.WARNING, "§cBenutze bitte einen der Folgenen Parameter").sendToPlayer(player);
+                String s = "§7";
+                for(PSMCommand psmCMD : PSMCommandHandler.getCommands()) {
+                    s += psmCMD.getName() + ", ";
+                }
+
+                s = s.substring(0, s.length() - 2) ;
+                player.sendMessage(s);
+                return true;
+
             }else {
                 for (int i = 0; i < args.length; i++) {
                     msg += args[i] + " ";
