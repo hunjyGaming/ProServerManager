@@ -3,7 +3,6 @@ package de.hunjy.commands;
 import de.hunjy.PSM;
 import de.hunjy.manager.TPSManager;
 import de.hunjy.utils.commands.PSMCommand;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.text.DecimalFormat;
@@ -56,7 +55,7 @@ public class CMD_performance implements PSMCommand{
                 String RAMColor;
                 long RamUsed = (Runtime.getRuntime().maxMemory() - Runtime.getRuntime().freeMemory()) / 1024L / 1024L;
                 long RamMax = Runtime.getRuntime().maxMemory() / 1024L / 1024L;
-                double RamProcent = (RamUsed / RamMax) * 100;
+                double RamProcent = (RamUsed*100) / RamMax;
                 if(RamProcent >= 90) {
                     RAMColor = "§4";
                 }else if(RamProcent >= 75) {
