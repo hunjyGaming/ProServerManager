@@ -1,15 +1,13 @@
 package de.hunjy;
 
-import de.hunjy.commands.CMD_help;
 import de.hunjy.commands.CMD_performance;
+import de.hunjy.manager.TPSManager;
+import de.hunjy.utils.commands.CMD_PSM;
+import de.hunjy.commands.CMD_help;
 import de.hunjy.listener.EVENT_JoinQuit;
 import de.hunjy.manager.ConfigManager;
 import de.hunjy.manager.MessageManager;
-import de.hunjy.manager.TPSManager;
 import de.hunjy.utils.PrefixBuilder;
-import de.hunjy.utils.alert.Alert;
-import de.hunjy.utils.alert.AlertType;
-import de.hunjy.utils.commands.CMD_PSM;
 import de.hunjy.utils.commands.PSMCommandHandler;
 import de.hunjy.utils.mysql.MySQL;
 import de.hunjy.utils.mysql.MySQL_Config;
@@ -43,7 +41,6 @@ public class PSM extends JavaPlugin {
         initListener();
         initManager();
         initRunnables();
-        startTPSAlert();
     }
 
     @Override
@@ -106,22 +103,5 @@ public class PSM extends JavaPlugin {
 
     public static MySQL getMySQL() {
         return mySQL;
-    }
-
-
-
-
-    private void startTPSAlert() {
-            Bukkit.getScheduler().runTaskTimerAsynchronously(getInstance(), new Runnable() {
-                @Override
-                public void run() {
-                    double TPS = TPSManager.getTPS();
-                    if (TPS < 15 && TPS > 10) {
-                        new Alert(AlertType.WARNING, "§7Die Tps ist unter §c15 TPS§7!").send();
-                    } else if (TPS < 15 && TPS < 10) {
-                        new Alert(AlertType.DANGER, "§7Die Tps ist unter §410 TPS§7!").send();
-                    }
-                }
-            }, 20, 20);
     }
 }
