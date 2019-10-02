@@ -30,6 +30,8 @@ public class CMD_performance implements PSMCommand{
     public void execute(Player player, String[] args) {
         if(player.hasPermission("psm.admin")) {
             if(args.length == 1) {
+                player.sendMessage("§7§m-----x---------------x-----");
+                player.sendMessage(" ");
                 double TPS = TPSManager.getTPS();
                 DecimalFormat TpsFormat = new DecimalFormat("#.##");
 
@@ -55,10 +57,13 @@ public class CMD_performance implements PSMCommand{
                 }
 
 
-                long TPSUsed = (long) TPS;
-                long TPSMax = (long) 20;
+                double TPSUsed = TPS;
+                double TPSMax = 20;
                 double TPSProcent = (TPSUsed*100) / TPSMax;
-                player.sendMessage(PSM.Prefix + "§7TPS§8: " + TPSolor +  TpsFormat.format(TPS) + " §8/ §220 §7(§b" + TPSProcent + "%§7)");
+
+                TPSProcent *= 100d;
+                TPSProcent = ((int)TPSProcent) / 100d;
+                player.sendMessage(PSM.Prefix + "§7TPS§8: " + TPSolor +  TpsFormat.format(TPS) + " §8/ §220 §7(§b" + TpsFormat.format(TPSProcent) + "%§7)");
 
 
                 String RAMColor;
@@ -80,6 +85,8 @@ public class CMD_performance implements PSMCommand{
 
                 player.sendMessage( PSM.Prefix + "§7RAM§8: " + RAMColor + (Runtime.getRuntime().maxMemory() - Runtime.getRuntime().freeMemory()) / 1024L / 1024L + " §8/ §4"  + Runtime.getRuntime().maxMemory()  / 1024L / 1024L + " §7(§b" + TpsFormat.format(RamProcent) + "%§7)");
                 player.sendMessage( PSM.Prefix + "§7CPU§8: §2" + Runtime.getRuntime().availableProcessors() + " §7(§bKern/e§7)");
+                player.sendMessage(" ");
+                player.sendMessage("§7§m-----x---------------x-----");
             } else {
                 player.sendMessage(PSM.Prefix + "§cDieser Command existiert nicht!");
             }
