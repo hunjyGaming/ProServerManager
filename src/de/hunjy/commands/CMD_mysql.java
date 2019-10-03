@@ -55,7 +55,7 @@ public class CMD_mysql implements PSMCommand {
                     player.sendMessage(" ");
                     player.sendMessage(PSM.Prefix + "§cDie MySQL ist deaktiviert");
                     player.sendMessage(PSM.Prefix + "§cWenn du die Daten änderst");
-                    player.sendMessage(PSM.Prefix + "§cbitte /rl ausführen");
+                    player.sendMessage(PSM.Prefix + "§cbitte /rl ausführen!");
                     player.sendMessage(" ");
                     player.sendMessage("§7§m-----x---------------x-----");
                 }
@@ -89,7 +89,7 @@ public class CMD_mysql implements PSMCommand {
                         player.sendMessage(" ");
                         player.sendMessage(PSM.Prefix + "§cDie MySQL ist deaktiviert");
                         player.sendMessage(PSM.Prefix + "§cWenn du die Daten änderst");
-                        player.sendMessage(PSM.Prefix + "§cbitte /rl ausführen");
+                        player.sendMessage(PSM.Prefix + "§cbitte /rl ausführen!");
                         player.sendMessage(" ");
                         player.sendMessage("§7§m-----x---------------x-----");
                     }
