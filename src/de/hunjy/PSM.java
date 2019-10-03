@@ -39,6 +39,7 @@ public class PSM extends JavaPlugin {
     public void onEnable() {
 
         instance = this;
+        initMySQL();
         initCommands();
         initListener();
         initManager();
@@ -51,6 +52,7 @@ public class PSM extends JavaPlugin {
     }
 
     private void initMySQL() {
+        mySQL_config = new MySQL_Config(getInstance());
         mySQL = new MySQL(mySQL_config.getHost(), mySQL_config.getPort(), mySQL_config.getUser(), mySQL_config.getDatabase(), mySQL_config.getPassword(), true);
     }
 
@@ -106,5 +108,9 @@ public class PSM extends JavaPlugin {
 
     public static MySQL getMySQL() {
         return mySQL;
+    }
+
+    public static MySQL_Config getMySQL_config() {
+        return mySQL_config;
     }
 }

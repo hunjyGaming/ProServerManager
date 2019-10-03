@@ -9,6 +9,8 @@ package de.hunjy.commands;
 
 import de.hunjy.PSM;
 import de.hunjy.utils.commands.PSMCommand;
+import de.hunjy.utils.mysql.MySQL;
+import de.hunjy.utils.mysql.MySQL_Config;
 import org.bukkit.entity.Player;
 
 import java.sql.SQLException;
@@ -30,11 +32,16 @@ public class CMD_mysql implements PSMCommand {
             if(args.length == 1) {
                 player.sendMessage("§7§m-----x---------------x-----");
                 player.sendMessage(" ");
-                try {
-                    player.sendMessage(PSM.Prefix + "§7Verbunden§8: " + (PSM.getMySQL().getConnection().isClosed() ? "§c✕" : "§a✔"));
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+                    if (PSM.getMySQL().getConnection() == null) {
+                        player.sendMessage(PSM.Prefix + "§7Verbunden§8: §c✕");
+                    } else {
+                        player.sendMessage(PSM.Prefix + "§7Verbunden§8: §a✔");
+                    }
+                player.sendMessage(PSM.Prefix + "§7HOST§8: §b" + PSM.getMySQL_config().getHost());
+                player.sendMessage(PSM.Prefix + "§7PORT§8: §b" + PSM.getMySQL_config().getPort());
+                player.sendMessage(PSM.Prefix + "§7USER§8: §b" + PSM.getMySQL_config().getUser());
+                player.sendMessage(PSM.Prefix + "§7DATABASE§8: §b" + PSM.getMySQL_config().getDatabase());
+                player.sendMessage(PSM.Prefix + "§7PASSWORD§8: §b" + PSM.getMySQL_config().getPassword());
                 player.sendMessage(" ");
                 player.sendMessage("§7§m-----x---------------x-----");
             } else {
