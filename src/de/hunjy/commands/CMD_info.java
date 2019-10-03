@@ -8,11 +8,14 @@ package de.hunjy.commands;
 */
 
 import de.hunjy.PSM;
-import de.hunjy.enums.Skull;
 import de.hunjy.utils.commands.PSMCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -20,7 +23,7 @@ import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.ArrayList;
 
-public class CMD_info implements PSMCommand {
+public class CMD_info implements PSMCommand, Listener {
     @Override
     public String getName() {
         return "info";
@@ -35,7 +38,8 @@ public class CMD_info implements PSMCommand {
     public void execute(Player player, String[] args) {
         if (player.hasPermission("psm.admin")) {
             if (args.length == 1) {
-
+                loadInfoGUI(player);
+                player.sendMessage(PSM.Prefix + "§7Du siehst nun informationen über das Projekt.");
             } else {
                 player.sendMessage(PSM.Prefix + "§cDieser Command existiert nicht!");
             }
@@ -71,11 +75,12 @@ public class CMD_info implements PSMCommand {
         inventory.setItem(24, getFill());
         inventory.setItem(25, getFill());
         inventory.setItem(26, getFill());
+        player.openInventory(inventory);
     }
 
     private static ItemStack getHunjy() {
 
-        ItemStack itemStack = new ItemStack(Material.SKULL_ITEM, 1);
+        ItemStack itemStack = new ItemStack(Material.SKULL_ITEM, 1, (short)3);
         SkullMeta itemMeta = (SkullMeta) itemStack.getItemMeta();
         itemMeta.setDisplayName("§bDeveloper §8× §bhunjy §7(§cFlorian§7)");
         itemMeta.setOwner("hunjy");
@@ -90,7 +95,7 @@ public class CMD_info implements PSMCommand {
 
     private static ItemStack getRiedCrafter() {
 
-        ItemStack itemStack = new ItemStack(Material.SKULL_ITEM, 1);
+        ItemStack itemStack = new ItemStack(Material.SKULL_ITEM, 1, (short)3);
         SkullMeta itemMeta = (SkullMeta) itemStack.getItemMeta();
         itemMeta.setDisplayName("§bDeveloper §8× §bRiedCrafter §7(§cMelvin§7)");
         itemMeta.setOwner("RiedCrafter");
@@ -105,7 +110,7 @@ public class CMD_info implements PSMCommand {
 
     private static ItemStack getHistory() {
 
-        ItemStack itemStack = new ItemStack(Material.SKULL_ITEM, 1);
+        ItemStack itemStack = new ItemStack(Material.SKULL_ITEM, 1, (short)3);
         SkullMeta itemMeta = (SkullMeta) itemStack.getItemMeta();
         itemMeta.setDisplayName("§3ProServerManager");
         itemMeta.setOwner("MHF_Question");
@@ -115,12 +120,10 @@ public class CMD_info implements PSMCommand {
         lore.add("§7am Anfang des §eOktober 2019 §7hatten und so schnell wie möglich");
         lore.add("§7umsetzen wollten§8.");
         lore.add("§7Dabei war ihre Intension hinter dem damals genannten §8'§cProjekt X§8'");
-        lore.add("§7die Ermöglichung eines eigenen Server's für viele Leute§8, indem sie ");
+        lore.add("§7die Ermöglichung eines eigenen Server's für viele Leute§8, §7indem sie");
         lore.add("§7dieses System kostenfrei zum Download mit API zur verfügung stellen§8,");
-        lore.add("§7sodass man seine eigenen Module dazu programmieren kann oder kosten-§8.");
+        lore.add("§7sodass man seine eigenen Module dazu programmieren kann oder kosten-");
         lore.add("§7pflichtig ihre Module zu kaufen§8.");
-        lore.add("");
-        lore.add("§8[§bwww.proservermanager.com§8]");
         itemMeta.setLore(lore);
         itemStack.setItemMeta(itemMeta);
         return itemStack;
@@ -133,6 +136,14 @@ public class CMD_info implements PSMCommand {
         meta.setDisplayName("§a");
         fill.setItemMeta(meta);
         return fill;
+    }
+
+    @EventHandler
+    public void on(InventoryClickEvent event) {
+        if(event.getInventory().getName().equals("§8» §bInfo§7-§bGUI §8«")) {
+            event.setResult(Event.Result.DENY);
+            event.setCancelled(true);
+        }
     }
 
 }

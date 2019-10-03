@@ -1,5 +1,7 @@
 package de.hunjy;
 
+import de.hunjy.commands.CMD_info;
+import de.hunjy.commands.CMD_mysql;
 import de.hunjy.commands.CMD_performance;
 import de.hunjy.manager.TPSManager;
 import de.hunjy.utils.commands.CMD_PSM;
@@ -72,13 +74,14 @@ public class PSM extends JavaPlugin {
         getCommand("psm").setTabCompleter(new CMD_PSM());
         PSMCommandHandler.registerCommand(new CMD_help());
         PSMCommandHandler.registerCommand(new CMD_performance());
-
+        PSMCommandHandler.registerCommand(new CMD_info());
+        PSMCommandHandler.registerCommand(new CMD_mysql());
     }
 
     private void initListener() {
         PluginManager pm = Bukkit.getPluginManager();
         pm.registerEvents(new EVENT_JoinQuit(), getInstance());
-
+        pm.registerEvents(new CMD_info(), getInstance());
     }
 
     public String replaceVar(String s, String var, String entry) {
