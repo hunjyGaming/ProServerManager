@@ -1,11 +1,9 @@
 package de.hunjy;
 
-import de.hunjy.commands.CMD_info;
-import de.hunjy.commands.CMD_mysql;
-import de.hunjy.commands.CMD_performance;
+import de.hunjy.commands.*;
+import de.hunjy.manager.LizenzManager;
 import de.hunjy.manager.TPSManager;
 import de.hunjy.utils.commands.CMD_PSM;
-import de.hunjy.commands.CMD_help;
 import de.hunjy.listener.EVENT_JoinQuit;
 import de.hunjy.manager.ConfigManager;
 import de.hunjy.manager.MessageManager;
@@ -28,10 +26,14 @@ public class PSM extends JavaPlugin {
 
     static PSM instance;
 
+    public static boolean SecureMode = false;
+
     private static MySQL mySQL;
     private static MySQL_Config mySQL_config;
     private MessageManager messageManager;
     private ConfigManager mainConfig;
+    private LizenzManager lizenzManager;
+
     public static String Prefix = new PrefixBuilder("§3PSM").build();
 
 
@@ -39,11 +41,22 @@ public class PSM extends JavaPlugin {
     public void onEnable() {
 
         instance = this;
-        initCommands();
-        initManager();
-        initMySQL();
-        initListener();
-        initRunnables();
+        lizenzManager = new LizenzManager();
+
+        if(SecureMode) {
+            getCommand("psm").setExecutor(new CMD_PSM());
+            getCommand("psm").setTabCompleter(new CMD_PSM());
+            PSMCommandHandler.registerCommand(new CMD_help());
+            PSMCommandHandler.registerCommand(new CMD_info());
+            PSMCommandHandler.registerCommand(new CMD_lizenz());
+            PSMCommandHandler.registerCommand(new CMD_aktivateLizenz());
+        }else {
+            initMySQL();
+            initCommands();
+            initListener();
+            initManager();
+            initRunnables();
+        }
     }
 
     @Override
@@ -52,18 +65,13 @@ public class PSM extends JavaPlugin {
     }
 
     private void initMySQL() {
-        if((boolean)getMainConfig().get("enableMySQL") == true) {
-            mySQL_config = new MySQL_Config(getInstance());
-            mySQL = new MySQL(mySQL_config.getHost(), mySQL_config.getPort(), mySQL_config.getUser(), mySQL_config.getDatabase(), mySQL_config.getPassword(), true);
-        } else {
-            Bukkit.getConsoleSender().sendMessage(PSM.Prefix + "§cDie MySQL-Datenbankverbindung wird nicht hergestellt.");
-        }
+        mySQL_config = new MySQL_Config(getInstance());
+        mySQL = new MySQL(mySQL_config.getHost(), mySQL_config.getPort(), mySQL_config.getUser(), mySQL_config.getDatabase(), mySQL_config.getPassword(), true);
     }
 
     private void initManager() {
         mainConfig = new ConfigManager("config.yml");
         mainConfig.setDefault("messageFile", "messages.yml");
-        mainConfig.setDefault("enableMySQL", false);
         mainConfig.setDefault("enableJoinMessage", true);
         mainConfig.setDefault("JoinMessage", "&8[&a+&8] §7%player%");
         mainConfig.setDefault("joinePermission", "psm.join.info");
@@ -83,6 +91,7 @@ public class PSM extends JavaPlugin {
         PSMCommandHandler.registerCommand(new CMD_performance());
         PSMCommandHandler.registerCommand(new CMD_info());
         PSMCommandHandler.registerCommand(new CMD_mysql());
+        PSMCommandHandler.registerCommand(new CMD_lizenz());
     }
 
     private void initListener() {
@@ -113,6 +122,10 @@ public class PSM extends JavaPlugin {
 
     public static MySQL getMySQL() {
         return mySQL;
+    }
+
+    public LizenzManager getLizenzManager() {
+        return lizenzManager;
     }
 
     public static MySQL_Config getMySQL_config() {

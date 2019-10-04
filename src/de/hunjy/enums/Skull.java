@@ -65,6 +65,7 @@ public enum  Skull {
     }
 
 
+    @Deprecated
     public static ItemStack getCustomSkull(String url, String name) {
         GameProfile profile = new GameProfile(UUID.randomUUID(), null);
         PropertyMap propertyMap = profile.getProperties();
@@ -82,6 +83,16 @@ public enum  Skull {
         return head;
     }
 
+    @Deprecated
+    public static ItemStack getPlayerSkull(String name) {
+        ItemStack itemStack = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
+        SkullMeta meta = (SkullMeta) itemStack.getItemMeta();
+        meta.setOwner(name);
+        itemStack.setItemMeta(meta);
+        return itemStack;
+    }
+
+    @Deprecated
     public static ItemStack getCustomSkull(String url) {
         GameProfile profile = new GameProfile(UUID.randomUUID(), null);
         PropertyMap propertyMap = profile.getProperties();
@@ -98,15 +109,7 @@ public enum  Skull {
         return head;
     }
 
-
-    public static ItemStack getPlayerSkull(String name) {
-        ItemStack itemStack = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
-        SkullMeta meta = (SkullMeta) itemStack.getItemMeta();
-        meta.setOwner(name);
-        itemStack.setItemMeta(meta);
-        return itemStack;
-    }
-
+    @Deprecated
     public static ItemStack getPlayerSkull(String name, String display) {
         ItemStack itemStack = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
         SkullMeta meta = (SkullMeta) itemStack.getItemMeta();
@@ -121,6 +124,7 @@ public enum  Skull {
     }
 
 
+    @Deprecated
     public ItemStack getSkull() {
         ItemStack itemStack = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
         SkullMeta meta = (SkullMeta) itemStack.getItemMeta();

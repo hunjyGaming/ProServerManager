@@ -48,33 +48,12 @@ public class CMD_info implements PSMCommand, Listener {
 
     private void loadInfoGUI(Player player) {
         Inventory inventory = Bukkit.createInventory(null,9*3,"§8» §bInfo§7-§bGUI §8«");
-        inventory.setItem(0, getFill());
-        inventory.setItem(1, getFill());
-        inventory.setItem(2, getFill());
-        inventory.setItem(3, getFill());
-        inventory.setItem(4, getFill());
-        inventory.setItem(5, getFill());
-        inventory.setItem(6, getFill());
-        inventory.setItem(7, getFill());
-        inventory.setItem(8, getFill());
-        inventory.setItem(9, getFill());
-        inventory.setItem(10, getFill());
+        for(int i = 0; i < inventory.getSize(); i++) {
+            inventory.setItem(i, getFill());
+        }
         inventory.setItem(11, getHunjy());
-        inventory.setItem(12, getFill());
         inventory.setItem(13, getHistory());
-        inventory.setItem(14, getFill());
         inventory.setItem(15, getRiedCrafter());
-        inventory.setItem(16, getFill());
-        inventory.setItem(17, getFill());
-        inventory.setItem(18, getFill());
-        inventory.setItem(19, getFill());
-        inventory.setItem(20, getFill());
-        inventory.setItem(21, getFill());
-        inventory.setItem(22, getFill());
-        inventory.setItem(23, getFill());
-        inventory.setItem(24, getFill());
-        inventory.setItem(25, getFill());
-        inventory.setItem(26, getFill());
         player.openInventory(inventory);
     }
 

@@ -7,6 +7,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 
 /*
     Create by hunjy on 29.09.2019
@@ -22,7 +23,10 @@ public class MessageManager {
     private YamlConfiguration config;
     private long lastUpdate;
 
+    public HashMap<String , String> messages;
+
     public MessageManager(String name) {
+        messages = new HashMap<>();
         this.name = name;
         this.file = new File(PSM.getInstance().getDataFolder() + "/messages", name);
         this.config = YamlConfiguration.loadConfiguration(this.file);
@@ -63,8 +67,14 @@ public class MessageManager {
             this.config = null;
             this.file = new File(PSM.getInstance().getDataFolder() + "/messages", name);
             this.config = YamlConfiguration.loadConfiguration(this.file);
+            messages = new HashMap<>();
         }
-        return PSM.getInstance().replaceVar(config.getString(key) , "", "");
+        if(messages.containsKey(key)) {
+            return PSM.getInstance().replaceVar(messages.get(key) , "", "");
+        }else {
+            messages.put(key, config.getString(key));
+            return PSM.getInstance().replaceVar(config.getString(key) , "", "");
+        }
     }
 
 }

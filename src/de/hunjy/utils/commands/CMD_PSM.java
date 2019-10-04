@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import de.hunjy.PSM;
 import de.hunjy.utils.alert.Alert;
 import de.hunjy.utils.alert.AlertType;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -24,6 +25,16 @@ public class CMD_PSM implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(CommandSender cs, Command cmd, String lable, String[] args) {
+
+
+            if(PSM.getInstance().getLizenzManager().isFileUpdated()) {
+                new Alert(AlertType.INFO , "Die Produkt Lizenz wurde geändert bitte warte einen moment!").send();
+                if(!PSM.getInstance().getLizenzManager().isAktiv()) {
+                    Bukkit.getServer().reload();
+                    return true;
+                }
+            }
+
 
             if( ! (cs instanceof Player)) {return false;}
             Player player = (Player) cs;
