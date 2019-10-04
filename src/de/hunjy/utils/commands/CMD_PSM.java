@@ -39,29 +39,30 @@ public class CMD_PSM implements CommandExecutor, TabCompleter {
             if( ! (cs instanceof Player)) {return false;}
             Player player = (Player) cs;
             String msg = "";
+            if(player.hasPermission("psm.admin")) {
+                if (args.length == 0) {
+                    new Alert(AlertType.WARNING, "§cBenutze bitte einen der Folgenen Parameter").sendToPlayer(player);
+                    String s = "§7";
+                    for (PSMCommand psmCMD : PSMCommandHandler.getCommands()) {
+                        s += psmCMD.getName() + ", ";
+                    }
 
-            if(args.length == 0) {
-                new Alert(AlertType.WARNING, "§cBenutze bitte einen der Folgenen Parameter").sendToPlayer(player);
-                String s = "§7";
-                for(PSMCommand psmCMD : PSMCommandHandler.getCommands()) {
-                    s += psmCMD.getName() + ", ";
+                    s = s.substring(0, s.length() - 2);
+                    player.sendMessage(s);
+                    return true;
+
+                } else {
+                    for (int i = 0; i < args.length; i++) {
+                        msg += args[i] + " ";
+                    }
+                    msg = msg.substring(0, (msg.length() - 1));
                 }
 
-                s = s.substring(0, s.length() - 2) ;
-                player.sendMessage(s);
-                return true;
-
-            }else {
-                for (int i = 0; i < args.length; i++) {
-                    msg += args[i] + " ";
+                if (PSMCommandHandler.executeCommand(player, msg)) {
+                    return true;
+                } else {
+                    player.sendMessage(PSM.Prefix + "§cDieser Command existiert nicht!");
                 }
-                msg = msg.substring(0, (msg.length() - 1));
-            }
-
-            if(PSMCommandHandler.executeCommand(player, msg)) {
-                return true;
-            } else {
-                player.sendMessage(PSM.Prefix + "§cDieser Command existiert nicht!");
             }
 
         return false;

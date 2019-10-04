@@ -73,6 +73,8 @@ public class PSM extends JavaPlugin {
         mainConfig = new ConfigManager("config.yml");
         mainConfig.setDefault("messageFile", "messages.yml");
         mainConfig.setDefault("enableJoinMessage", true);
+        mainConfig.setDefault("enableMySQL", false);
+        mainConfig.setDefault("maintenanceMode", false);
         mainConfig.setDefault("JoinMessage", "&8[&a+&8] §7%player%");
         mainConfig.setDefault("joinePermission", "psm.join.info");
 
@@ -92,6 +94,7 @@ public class PSM extends JavaPlugin {
         PSMCommandHandler.registerCommand(new CMD_info());
         PSMCommandHandler.registerCommand(new CMD_mysql());
         PSMCommandHandler.registerCommand(new CMD_lizenz());
+        PSMCommandHandler.registerCommand(new CMD_toggleMaintenance());
     }
 
     private void initListener() {
