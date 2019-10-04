@@ -39,10 +39,10 @@ public class PSM extends JavaPlugin {
     public void onEnable() {
 
         instance = this;
-        initMySQL();
         initCommands();
-        initListener();
         initManager();
+        initMySQL();
+        initListener();
         initRunnables();
     }
 
@@ -52,13 +52,18 @@ public class PSM extends JavaPlugin {
     }
 
     private void initMySQL() {
-        mySQL_config = new MySQL_Config(getInstance());
-        mySQL = new MySQL(mySQL_config.getHost(), mySQL_config.getPort(), mySQL_config.getUser(), mySQL_config.getDatabase(), mySQL_config.getPassword(), true);
+        if((boolean)getMainConfig().get("enableMySQL") == true) {
+            mySQL_config = new MySQL_Config(getInstance());
+            mySQL = new MySQL(mySQL_config.getHost(), mySQL_config.getPort(), mySQL_config.getUser(), mySQL_config.getDatabase(), mySQL_config.getPassword(), true);
+        } else {
+            Bukkit.getConsoleSender().sendMessage(PSM.Prefix + "§cDie MySQL-Datenbankverbindung wird nicht hergestellt.");
+        }
     }
 
     private void initManager() {
         mainConfig = new ConfigManager("config.yml");
         mainConfig.setDefault("messageFile", "messages.yml");
+        mainConfig.setDefault("enableMySQL", false);
         mainConfig.setDefault("enableJoinMessage", true);
         mainConfig.setDefault("JoinMessage", "&8[&a+&8] §7%player%");
         mainConfig.setDefault("joinePermission", "psm.join.info");
