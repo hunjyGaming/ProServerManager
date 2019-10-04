@@ -1,6 +1,7 @@
 package de.hunjy;
 
 import de.hunjy.commands.*;
+import de.hunjy.listener.EVENT_ListPing;
 import de.hunjy.manager.LizenzManager;
 import de.hunjy.manager.TPSManager;
 import de.hunjy.utils.commands.CMD_PSM;
@@ -77,6 +78,8 @@ public class PSM extends JavaPlugin {
         mainConfig.setDefault("maintenanceMode", false);
         mainConfig.setDefault("JoinMessage", "&8[&a+&8] §7%player%");
         mainConfig.setDefault("joinePermission", "psm.join.info");
+        mainConfig.setDefault("hardCap", 110);
+        mainConfig.setDefault("softCap", 100);
 
 
         messageManager = new MessageManager( ( String ) mainConfig.get("messageFile"));
@@ -94,6 +97,7 @@ public class PSM extends JavaPlugin {
         PSMCommandHandler.registerCommand(new CMD_info());
         PSMCommandHandler.registerCommand(new CMD_mysql());
         PSMCommandHandler.registerCommand(new CMD_lizenz());
+        PSMCommandHandler.registerCommand(new CMD_setcap());
         PSMCommandHandler.registerCommand(new CMD_toggleMaintenance());
     }
 
@@ -101,6 +105,7 @@ public class PSM extends JavaPlugin {
         PluginManager pm = Bukkit.getPluginManager();
         pm.registerEvents(new EVENT_JoinQuit(), getInstance());
         pm.registerEvents(new CMD_info(), getInstance());
+        pm.registerEvents(new EVENT_ListPing(), getInstance());
     }
 
     public String replaceVar(String s, String var, String entry) {

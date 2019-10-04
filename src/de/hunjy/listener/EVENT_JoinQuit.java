@@ -1,11 +1,14 @@
 package de.hunjy.listener;
 
 import de.hunjy.PSM;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
+
+import java.util.Random;
 
 /*
     Create by hunjy on 29.09.2019
@@ -38,6 +41,31 @@ public class EVENT_JoinQuit implements Listener {
             if(!player.hasPermission("psm.admin")) {
                 event.setResult(PlayerLoginEvent.Result.KICK_OTHER);
                 event.setKickMessage("§7§m-----x---------------x-----\n\n§cZur Zeit werden §4Wartungen\n§cdurchgeführt. Bitte habe Geduld.\n\n§7§m-----x---------------x-----");
+            }
+        }
+        if(Bukkit.getOnlinePlayers().size() >= (int)PSM.getInstance().getMainConfig().get("softCap") && Bukkit.getOnlinePlayers().size() < (int)PSM.getInstance().getMainConfig().get("hardCap")) {
+            if(!player.hasPermission("psm.admin")) {
+                event.setResult(PlayerLoginEvent.Result.KICK_OTHER);
+                event.setKickMessage("§7§m-----x---------------x-----\n\n§cDer Server ist leider voll.\n\n§7§m-----x---------------x-----");
+            }
+        }
+        if(Bukkit.getOnlinePlayers().size() == (int)PSM.getInstance().getMainConfig().get("hardCap")) {
+            if(!player.hasPermission("psm.admin")) {
+                event.setResult(PlayerLoginEvent.Result.KICK_OTHER);
+                event.setKickMessage("§7§m-----x---------------x-----\n\n§cDer Server ist leider voll.\n\n§7§m-----x---------------x-----");
+            } else {
+                Bukkit.getOnlinePlayers().forEach(all -> {
+                    if(!all.hasPermission("psm.admin")) {
+                        int PlayerNummer = new Random().nextInt(Bukkit.getOnlinePlayers().size());
+                        Player target = (Player) PSM.getInstance().getServer().getOnlinePlayers().toArray()[PlayerNummer];
+                        target.kickPlayer("§7§m-----x---------------x-----\n\n§cDer Server ist leider voll.\n\n§7§m-----x---------------x-----");
+                        event.setResult(PlayerLoginEvent.Result.ALLOWED);
+                        event.allow();
+                    } else {
+                        event.setResult(PlayerLoginEvent.Result.KICK_OTHER);
+                        event.setKickMessage("§7§m-----x---------------x-----\n\n§cDer Server ist leider voll.\n\n§7§m-----x---------------x-----");
+                    }
+                });
             }
         }
     }
