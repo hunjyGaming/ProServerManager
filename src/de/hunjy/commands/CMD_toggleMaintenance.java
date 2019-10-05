@@ -9,6 +9,7 @@ package de.hunjy.commands;
 
 import de.hunjy.PSM;
 import de.hunjy.utils.commands.PSMCommand;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 public class CMD_toggleMaintenance implements PSMCommand {
@@ -32,6 +33,11 @@ public class CMD_toggleMaintenance implements PSMCommand {
                 } else if((boolean)PSM.getInstance().getMainConfig().get("maintenanceMode") == false) {
                     PSM.getInstance().getMainConfig().set("maintenanceMode", true);
                     player.sendMessage(PSM.Prefix + "§7Der §8'§bMaintenance§7-§bMode§8' §7wurde aktiviert§8.");
+                    Bukkit.getOnlinePlayers().forEach(online -> {
+                        if(!online.hasPermission("psm.admin")) {
+                            online.kickPlayer("§7§m-----x---------------x-----\n\n§cZur Zeit werden §4Wartungen\n§cdurchgeführt. Bitte habe Geduld.\n\n§7§m-----x---------------x-----");
+                        }
+                    });
                 } else {
                     player.sendMessage(PSM.Prefix + "§cEs trat ein fehler auf. §7(§e/rl§7)");
                 }

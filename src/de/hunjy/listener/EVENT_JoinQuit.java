@@ -30,7 +30,7 @@ public class EVENT_JoinQuit implements Listener {
             event.setJoinMessage(msg);
         }
         if (player.hasPermission((String) PSM.getInstance().getMainConfig().get("joinePermission"))) {
-            player.sendMessage(PSM.getInstance().getMessageManager().get("test").toString());
+            player.sendMessage(PSM.getInstance().getMessageManager().get("test"));
         }
     }
 

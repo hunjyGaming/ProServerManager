@@ -80,7 +80,10 @@ public class PSM extends JavaPlugin {
         mainConfig.setDefault("joinePermission", "psm.join.info");
         mainConfig.setDefault("hardCap", 110);
         mainConfig.setDefault("softCap", 100);
-
+        mainConfig.setDefault("motd1", "&3ProServerManager&8.&3com &7- &aDein Testnetzwerk");
+        mainConfig.setDefault("motd2", "&8[&2+&8] &6Coole Updates &c!!!");
+        mainConfig.setDefault("maintenanceMotd1", "&3ProServerManager&8.&3com &7- &aDein Testnetzwerk");
+        mainConfig.setDefault("maintenanceMotd2", "&cWir führen aktuell &4Wartungen &cdurch!");
 
         messageManager = new MessageManager( ( String ) mainConfig.get("messageFile"));
     }
@@ -98,6 +101,7 @@ public class PSM extends JavaPlugin {
         PSMCommandHandler.registerCommand(new CMD_mysql());
         PSMCommandHandler.registerCommand(new CMD_lizenz());
         PSMCommandHandler.registerCommand(new CMD_setcap());
+        PSMCommandHandler.registerCommand(new CMD_setmotd());
         PSMCommandHandler.registerCommand(new CMD_toggleMaintenance());
     }
 
