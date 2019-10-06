@@ -2,12 +2,9 @@ package de.hunjy;
 
 import de.hunjy.commands.*;
 import de.hunjy.listener.EVENT_ListPing;
-import de.hunjy.manager.LizenzManager;
-import de.hunjy.manager.TPSManager;
+import de.hunjy.manager.*;
 import de.hunjy.utils.commands.CMD_PSM;
 import de.hunjy.listener.EVENT_JoinQuit;
-import de.hunjy.manager.ConfigManager;
-import de.hunjy.manager.MessageManager;
 import de.hunjy.utils.PrefixBuilder;
 import de.hunjy.utils.commands.PSMCommandHandler;
 import de.hunjy.utils.mysql.MySQL;
@@ -76,6 +73,7 @@ public class PSM extends JavaPlugin {
         mainConfig.setDefault("enableJoinMessage", true);
         mainConfig.setDefault("enableMySQL", false);
         mainConfig.setDefault("maintenanceMode", false);
+        mainConfig.setDefault("secureSystem", true);
         mainConfig.setDefault("JoinMessage", "&8[&a+&8] §7%player%");
         mainConfig.setDefault("joinePermission", "psm.join.info");
         mainConfig.setDefault("hardCap", 110);
@@ -110,6 +108,7 @@ public class PSM extends JavaPlugin {
         pm.registerEvents(new EVENT_JoinQuit(), getInstance());
         pm.registerEvents(new CMD_info(), getInstance());
         pm.registerEvents(new EVENT_ListPing(), getInstance());
+        pm.registerEvents(new SecureManager(), getInstance());
     }
 
     public String replaceVar(String s, String var, String entry) {
