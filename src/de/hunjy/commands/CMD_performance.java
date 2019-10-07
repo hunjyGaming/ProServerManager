@@ -4,9 +4,8 @@ import de.hunjy.PSM;
 import de.hunjy.manager.TPSManager;
 import de.hunjy.utils.commands.PSMCommand;
 import org.bukkit.entity.Player;
-import org.omg.SendingContext.RunTimeOperations;
-import sun.rmi.runtime.RuntimeUtil;
 
+import java.lang.management.ManagementFactory;
 import java.text.DecimalFormat;
 
 /*
@@ -84,9 +83,23 @@ public class CMD_performance implements PSMCommand{
                     RAMColor = "§2";
                 }
 
+                String CPUColor;
+                double CPUUsage = ManagementFactory.getOperatingSystemMXBean().getSystemLoadAverage();
+                double CPUProcent = (Math.round(CPUUsage * 100));
+                if(CPUProcent >= 90) {
+                    CPUColor = "§4";
+                }else if(CPUProcent >= 75) {
+                    CPUColor = "§c";
+                }else if(CPUProcent >= 50) {
+                    CPUColor = "§6";
+                }else if(CPUProcent >= 25) {
+                    CPUColor = "§a";
+                }else {
+                    CPUColor = "§2";
+                }
 
                 player.sendMessage( PSM.Prefix + "§7RAM§8: " + RAMColor + (Runtime.getRuntime().maxMemory() - Runtime.getRuntime().freeMemory()) / 1024L / 1024L + " §8/ §4"  + Runtime.getRuntime().maxMemory()  / 1024L / 1024L + " §7(§b" + TpsFormat.format(RamProcent) + "%§7)");
-                player.sendMessage( PSM.Prefix + "§7CPU§8: §2" + Runtime.getRuntime().availableProcessors() + " §7(§bKern/e§7)");
+                player.sendMessage( PSM.Prefix + "§7CPU§8: " + CPUColor + CPUProcent + "§7%  §7(§b" + ((Runtime.getRuntime().availableProcessors() == 1) ? ("1 Kern") : (Runtime.getRuntime().availableProcessors() + " Kerne")) + "§7)");
                 player.sendMessage(" ");
                 player.sendMessage("§7§m-----x---------------x-----");
             } else {
