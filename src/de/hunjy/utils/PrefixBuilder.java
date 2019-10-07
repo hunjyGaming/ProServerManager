@@ -1,5 +1,7 @@
 package de.hunjy.utils;
 
+import de.hunjy.utils.random.RandomUtil;
+
 /*
     Create by hunjy on 29.09.2019
     @auther: hunjy

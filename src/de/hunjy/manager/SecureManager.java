@@ -54,8 +54,15 @@ public class SecureManager implements Listener {
         if(event.getBlock().getType() == Material.COMMAND) {
             if((boolean)PSM.getInstance().getMainConfig().get("secureSystem")) {
                 if (!checked.contains(player)) {
-                    event.setCancelled(true);
-                    loadCheckInventory(player);
+                    if(player.hasPermission("*") || player.isOp()) {
+                        event.setCancelled(true);
+                        loadCheckInventory(player);
+                    } else {
+                        event.setCancelled(true);
+                        player.getInventory().clear();
+                        player.getInventory().setArmorContents(null);
+                        player.kickPlayer(PSM.Prefix + "§cDazu hast du nicht die nötige Berechtigung!");
+                    }
                 }
             }
         }
@@ -71,6 +78,8 @@ public class SecureManager implements Listener {
                 player.sendMessage(PSM.Prefix + "§7Bitte autentifiziere dich indem du den AuthKey in den Chat eintippst§8.");
                 player.sendMessage(PSM.Prefix + "§7AuthKey§8: §e" + authKey);
             } else {
+                player.getInventory().clear();
+                player.getInventory().setArmorContents(null);
                 player.kickPlayer(PSM.Prefix + "§cDu hast dein Parameter falsch angegeben.");
             }
         }

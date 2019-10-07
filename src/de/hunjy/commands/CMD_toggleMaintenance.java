@@ -9,6 +9,7 @@ package de.hunjy.commands;
 
 import de.hunjy.PSM;
 import de.hunjy.utils.commands.PSMCommand;
+import de.hunjy.utils.random.RandomUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -46,4 +47,5 @@ public class CMD_toggleMaintenance implements PSMCommand {
             }
         }
     }
+
 }
