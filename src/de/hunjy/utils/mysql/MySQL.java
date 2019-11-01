@@ -50,10 +50,6 @@ public class MySQL {
         }
     }
 
-    public void nullConnection() {
-        connection = null;
-    }
-
     public void update(String qry) {
         Statement statement;
         try {

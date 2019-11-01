@@ -83,6 +83,9 @@ public class CMD_performance implements PSMCommand{
                     RAMColor = "§2";
                 }
 
+                String OS = ManagementFactory.getOperatingSystemMXBean().getName();
+                String Ver = ManagementFactory.getOperatingSystemMXBean().getVersion();
+
                 String CPUColor;
                 double CPUUsage = ManagementFactory.getOperatingSystemMXBean().getSystemLoadAverage();
                 double CPUProcent = (Math.round(CPUUsage * 100));
@@ -100,6 +103,7 @@ public class CMD_performance implements PSMCommand{
 
                 player.sendMessage( PSM.Prefix + "§7RAM§8: " + RAMColor + (Runtime.getRuntime().maxMemory() - Runtime.getRuntime().freeMemory()) / 1024L / 1024L + " §8/ §4"  + Runtime.getRuntime().maxMemory()  / 1024L / 1024L + " §7(§b" + TpsFormat.format(RamProcent) + "%§7)");
                 player.sendMessage( PSM.Prefix + "§7CPU§8: " + CPUColor + CPUProcent + "§7%  §7(§b" + ((Runtime.getRuntime().availableProcessors() == 1) ? ("1 Kern") : (Runtime.getRuntime().availableProcessors() + " Kerne")) + "§7)");
+                player.sendMessage(PSM.Prefix + "§7OS§8: §e" + OS + " §7(§b" + Ver + "§7)");
                 player.sendMessage(" ");
                 player.sendMessage("§7§m-----x---------------x-----");
             } else {
